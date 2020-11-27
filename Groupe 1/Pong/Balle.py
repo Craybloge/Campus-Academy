@@ -11,6 +11,7 @@ class Balle(pygame.sprite.Sprite):
         
         # Pass in the color of the ball, its width and height.
         # Set the background color and set it to be transparent
+        
         self.image = pygame.Surface([width, height])
         self.image.fill(BLACK)
         self.image.set_colorkey(BLACK)
@@ -27,6 +28,10 @@ class Balle(pygame.sprite.Sprite):
         self.rect.x += self.vitesse[0]
         self.rect.y += self.vitesse[1]
     
-    def rebond(self):
+    def rebondVertical(self):
         self.vitesse[0] = -self.vitesse[0]
         self.vitesse[1] = randint(-8,8)
+    
+    def rebondHorizontal(self):
+        self.vitesse[1] = -self.vitesse[1]
+        self.vitesse[0] = randint(-8,8)

@@ -23,3 +23,13 @@ class Raquette(pygame.sprite.Sprite):
         self.rect.y += mouvement
         if self.rect.y > 400:
             self.rect.y = 400
+    
+    def moveLeft(self, mouvement):
+        self.rect.x -= mouvement
+        if self.rect.x < 0:
+            self.rect.x = 0
+        
+    def moveRight(self, mouvement):
+        self.rect.x += mouvement
+        if self.rect.x >600:
+            self.rect.x = 600
