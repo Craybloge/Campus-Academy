@@ -95,7 +95,7 @@ while jeuEnCours:
     if balle.rect.x<=0:
         score1 += 1
         balle.vitesse[0] = -balle.vitesse[0]
-    if balle.rect.y>490:
+    if balle.rect.y>485:
         balle.vitesse[1] = -balle.vitesse[1]
         score4 += 1
     if balle.rect.y<0:
