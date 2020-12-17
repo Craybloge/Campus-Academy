@@ -3,9 +3,9 @@ ASCII Christmas Tree using Python + some documentation about VM
 
 ##### liste de choses à faire:
 - [ ] les sapins en pythons
-  - [ ] feuillage
-  - [ ] tronc
-  - [ ] guirlandes
+  - [x] feuillage
+  - [x] tronc
+  - [x] guirlandes
   - [ ] boules
   - [ ] étoile
   - [ ] bonus 1: taille augmentée
