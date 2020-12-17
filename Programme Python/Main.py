@@ -1,6 +1,8 @@
 
 def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranch):
-
+    if totalHeight == 0:
+        drawing = addingStar(drawing, maxWidth)
+        totalHeight = 7
     #creation of the leaves
     baseWidth = width
     height = 4
@@ -56,12 +58,49 @@ def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranc
 
 
 
+def addingStar(drawing,maxWidth):
+    spaces = maxWidth-6
+    starSpaces = 4
+    for line in range(7):
+        drawing.append([])
+        [drawing[line].append(" ") for rows in range(spaces)]
+        if line < 2:
+            [drawing[line].append(" ") for rows in range(4-starSpaces)]
+            drawing[line].append("*")
+            for rows in range(2):
+                [drawing[line].append(" ") for rows in range(starSpaces)]
+                drawing[line].append("*")
+            starSpaces -= 2
+        if line == 3:
+            for rows in range(11):
+                drawing[line].append("*") if rows%2 == 0 else drawing[line].append(" ")
+        if line == 4 or line == 2:
+            [drawing[line].append(" ") for rows in range(5)]
+            drawing[line].append("*")
+        if line == 5:
+            [drawing[line].append(" ") for rows in range(2)]
+            drawing[line].append("*")
+            [drawing[line].append(" ") for rows in range(2)]
+            drawing[line].append("|")
+            [drawing[line].append(" ") for rows in range(2)]
+            drawing[line].append("*")
+        if line == 6:
+            drawing[line].append("*")
+            [drawing[line].append(" ") for rows in range(4)]
+            drawing[line].append("|")
+            [drawing[line].append(" ") for rows in range(4)]
+            drawing[line].append("*")
+        for rows in range(spaces):
+            drawing[line].append(" ")
+    return drawing
+
 def addingBaubles(drawing):
-    for line in range(len(drawing)-5):
+    for line in range(7, len(drawing)-5):
         for rows in range(len(drawing[line])-1):
-            if drawing[line][rows] == '*' and drawing[line+1][rows] == " ":
-                if drawing[line][rows-1] == " " or drawing[line][rows+1] == " ":
-                    drawing[line+1][rows] = "0"
+            if drawing[line][rows] == '*':
+                if drawing[line+1][rows] == " ":
+                    if drawing[line][rows-1] == " " or drawing[line][rows+1] == " ":
+                        drawing[line+1][rows] = "0"
     return drawing
 
 
