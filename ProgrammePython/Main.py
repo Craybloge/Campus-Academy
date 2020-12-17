@@ -1,6 +1,6 @@
+import sys
 
-def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranch):
-    numberOfTrees = 0
+def creation(drawing, maxWidth, width, incrementation, totalHeight, numberOfBranch):
     if totalHeight == 0:
         drawing = addingStar(drawing, maxWidth)
         totalHeight = 7
@@ -114,13 +114,19 @@ def printing(drawing, numberOfTrees):
                 print(j, end="")
         print('')
 
-numberOfTrees = 4
-numberOfBranch = 4
+numberOfTrees = 3
+numberOfBranch = 5
 baseWidth = 1
 incrementation = 1
 totalHeight = 0
 maxWidth = int(((8*numberOfBranch-1)+6)/2)
-drawing= []
 
+drawing= []
+args = sys.argv
+print(args)
+if len(args) >= 2:
+    numberOfBranch = int(args[1])
+if len(args) >= 3:
+    numberOfTrees = int(args[2])
 tree= creation(drawing, maxWidth, baseWidth, incrementation, totalHeight, numberOfBranch)
 printing(tree, numberOfTrees)
