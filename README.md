@@ -6,7 +6,7 @@ ASCII Christmas Tree using Python + some documentation about VM
   - [x] feuillage
   - [x] tronc
   - [x] guirlandes
-  - [ ] boules
+  - [x] boules
   - [ ] étoile
   - [ ] bonus 1: taille augmentée
   - [ ] bonus 2: 2 sapins
