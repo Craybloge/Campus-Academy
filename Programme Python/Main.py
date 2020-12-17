@@ -1,7 +1,6 @@
 
 def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranch):
 
-
     #creation of the leaves
     baseWidth = width
     height = 4
@@ -12,9 +11,11 @@ def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranc
         drawing.append([])
         for position in range(spaces):
             drawing[line + totalHeight].append(" ")
-        spaces -= incrementation
         for j in range(width):
             drawing[line + totalHeight].append("*")
+        for position in range(spaces):
+            drawing[line + totalHeight].append(" ")
+        spaces -= incrementation
         width += incrementation*2
     numberOfBranch -= 1
     totalHeight +=height
@@ -50,8 +51,20 @@ def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranc
                     drawing[line+totalHeight].append(" ")
                 for j in range(5):
                     drawing[line+totalHeight].append("*")
-
+    drawing = addingBaubles(drawing)
     return drawing
+
+
+
+def addingBaubles(drawing):
+    for line in range(len(drawing)-5):
+        for rows in range(len(drawing[line])-1):
+            if drawing[line][rows] == '*' and drawing[line+1][rows] == " ":
+                if drawing[line][rows-1] == " " or drawing[line][rows+1] == " ":
+                    drawing[line+1][rows] = "0"
+    return drawing
+
+
 
 def printing(drawing):
     for i in drawing:
@@ -61,12 +74,11 @@ def printing(drawing):
 
 
 
-numberOfBranch = 10
+numberOfBranch = 5
 baseWidth = 1
 incrementation = 1
 totalHeight = 0
 maxWidth = int(((8*numberOfBranch-1)+6)/2)
-print(maxWidth)
 drawing= []
 tree= creation(drawing, maxWidth, baseWidth, incrementation, totalHeight, numberOfBranch)
 printing(tree)
