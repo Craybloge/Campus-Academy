@@ -1,11 +1,12 @@
 
 def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranch):
+    numberOfTrees = 0
     if totalHeight == 0:
         drawing = addingStar(drawing, maxWidth)
         totalHeight = 7
     #creation of the leaves
-    baseWidth = width
     height = 4
+    baseWidth = width
     spaces = 2*int(maxWidth/2)-width
     for line in range(height):
         if line == 0:
@@ -46,6 +47,7 @@ def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranc
                         drawing[line+totalHeight].append(" ")
                     if len(drawing[line+totalHeight]) >= spaces+(int(width/2)-2) and len(drawing[line+totalHeight]) < spaces+(int(width/2)+3):
                         drawing[line+totalHeight].append("*")
+                [drawing[line+totalHeight].append(" ") for rows in range(spaces)]
 
             else:   
                 #creation of the trunk
@@ -53,10 +55,9 @@ def creation(drawing, maxWidth,width, incrementation, totalHeight, numberOfBranc
                     drawing[line+totalHeight].append(" ")
                 for j in range(5):
                     drawing[line+totalHeight].append("*")
+                [drawing[line+totalHeight].append(" ") for rows in range(spaces+(int(width/2)-2))]
     drawing = addingBaubles(drawing)
     return drawing
-
-
 
 def addingStar(drawing,maxWidth):
     spaces = maxWidth-6
@@ -70,6 +71,7 @@ def addingStar(drawing,maxWidth):
             for rows in range(2):
                 [drawing[line].append(" ") for rows in range(starSpaces)]
                 drawing[line].append("*")
+            [drawing[line].append(" ") for rows in range(4-starSpaces)]
             starSpaces -= 2
         if line == 3:
             for rows in range(11):
@@ -77,6 +79,7 @@ def addingStar(drawing,maxWidth):
         if line == 4 or line == 2:
             [drawing[line].append(" ") for rows in range(5)]
             drawing[line].append("*")
+            [drawing[line].append(" ") for rows in range(5)]
         if line == 5:
             [drawing[line].append(" ") for rows in range(2)]
             drawing[line].append("*")
@@ -84,6 +87,7 @@ def addingStar(drawing,maxWidth):
             drawing[line].append("|")
             [drawing[line].append(" ") for rows in range(2)]
             drawing[line].append("*")
+            [drawing[line].append(" ") for rows in range(2)]
         if line == 6:
             drawing[line].append("*")
             [drawing[line].append(" ") for rows in range(4)]
@@ -103,21 +107,20 @@ def addingBaubles(drawing):
                         drawing[line+1][rows] = "0"
     return drawing
 
-
-
-def printing(drawing):
+def printing(drawing, numberOfTrees):
     for i in drawing:
-        for j in i:
-            print(j, end="")
+        for number in range(numberOfTrees):
+            for j in i:
+                print(j, end="")
         print('')
 
-
-
-numberOfBranch = 5
+numberOfTrees = 4
+numberOfBranch = 4
 baseWidth = 1
 incrementation = 1
 totalHeight = 0
 maxWidth = int(((8*numberOfBranch-1)+6)/2)
 drawing= []
+
 tree= creation(drawing, maxWidth, baseWidth, incrementation, totalHeight, numberOfBranch)
-printing(tree)
+printing(tree, numberOfTrees)

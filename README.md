@@ -8,8 +8,8 @@ ASCII Christmas Tree using Python + some documentation about VM
   - [x] guirlandes
   - [x] boules
   - [x] étoile
-  - [ ] bonus 1: taille augmentée
-  - [ ] bonus 2: 2 sapins
+  - [x] bonus 1: taille augmentée
+  - [X] bonus 2: 2 sapins
 - [ ] les sapins en algorythme
 - [ ] faire un markdown propre
 - [ ] comprendre l'histoire des arguments python (2.1 sur le pdf)
