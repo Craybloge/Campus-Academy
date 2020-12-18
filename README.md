@@ -16,3 +16,4 @@ ASCII Christmas Tree using Python + some documentation about VM
 - [ ] vérifier le code avec PEP8 et flake8
 - [ ] document word pour le git en vm locale avec les proof of concept (3.1 sur le pdf)
 - [ ] Bonus Réseau (3.2 sur le pdf)
+- [ ] https://gitea.io/en-us/ wesh thomas
