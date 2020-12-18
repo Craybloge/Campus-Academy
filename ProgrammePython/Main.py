@@ -21,7 +21,7 @@ elle sert à calculer le nombre d'espace nécessaire dans le tableau.
 
 """
 import sys
-
+import constant
 NUMBER_OF_TREES = 2
 NUMBER_OF_BRANCH = 8
 INCREMENTATION = 1
