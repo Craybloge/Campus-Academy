@@ -2,7 +2,7 @@
 ASCII Christmas Tree using Python + some documentation about VM
 
 ### PythonScripts
-find more useful information here: PythonScripts\exercices\README_main.md  
+find more useful information [here](PythonScripts\exercices\README_main.md)  
 here you can find all the **scripts** about the projects, alongside with their **algorythm**.
 you can execute the  scripts with 2 int arguments, in order:
 1. The number of branch you want(the size of the tree)
