@@ -1,7 +1,6 @@
 """
 Création d'un sapin
-on peut changer les constantes pour faire varier le sapin, mais pour l'esthétisme
-je recommande de modifier seulement:
+
 - number_of_branch:
     le nombre de branches (le nombre de pyramide empilée si on veut)
 - number_of_tree :
@@ -22,22 +21,32 @@ elle sert à calculer le nombre d'espace nécessaire dans le tableau.
 """
 import sys
 
-NUMBER_OF_TREES = 8
-NUMBER_OF_BRANCH = 3
+NUMBER_OF_TREES = 4
+NUMBER_OF_BRANCH = 5
 
 
 def creation(number_of_branch):
     """
     ff
     """
-    INCREMENTATION = 1
-    MAX_WIDTH = int(((8 * NUMBER_OF_BRANCH + 3)) / 2)
+    incrementation = 1
+    max_width = int(((8 * NUMBER_OF_BRANCH + 3)) / 2)
 
-    drawing, current_height = adding_star(MAX_WIDTH)
-    drawing, current_height, spaces = leaves(drawing, MAX_WIDTH, current_height, INCREMENTATION, number_of_branch)
-    drawing = trunk_and_wreath(drawing, MAX_WIDTH, current_height, INCREMENTATION, number_of_branch-1, spaces)
+    drawing, current_height = adding_star(max_width)
+    drawing, current_height, spaces = leaves(drawing,
+                                             max_width,
+                                             current_height,
+                                             incrementation,
+                                             number_of_branch)
+    drawing = trunk_and_wreath(drawing,
+                               max_width,
+                               current_height,
+                               (spaces +
+                                incrementation +
+                                (number_of_branch - 1)))
     drawing = adding_baubles(drawing)
     return drawing
+
 
 def adding_star(max_width):
     drawing = []
@@ -60,11 +69,11 @@ def adding_star(max_width):
             star_spaces -= 2
         if line == 3:
             for rows in range(11):
-                if rows%2 == 0:
+                if rows % 2 == 0:
                     drawing[line].append("*")
                 else:
                     drawing[line].append(" ")
-        if line in (4,2):
+        if line in (4, 2):
             for rows in range(5):
                 drawing[line].append(" ")
             drawing[line].append("*")
@@ -94,8 +103,12 @@ def adding_star(max_width):
             drawing[line].append(" ")
     return drawing, 7
 
-def leaves(drawing, max_width, current_height, incrementation, number_of_branch):
-    #creation of the leaves
+
+def leaves(drawing, max_width, current_height,
+           incrementation, number_of_branch):
+    '''
+    creation of the leaves
+    '''
     width = 1
     height = 4
 
@@ -106,11 +119,11 @@ def leaves(drawing, max_width, current_height, incrementation, number_of_branch)
             if line == 0:
                 spaces += ((incrementation+branches)-1)
             drawing.append([])
-            for position in range(spaces):
+            for rows in range(spaces):
                 drawing[line + current_height].append(" ")
-            for position in range(width):
+            for rows in range(width):
                 drawing[line + current_height].append("*")
-            for position in range(spaces):
+            for rows in range(spaces):
                 drawing[line + current_height].append(" ")
             spaces -= incrementation+branches
             width += (incrementation+branches) * 2
@@ -118,40 +131,48 @@ def leaves(drawing, max_width, current_height, incrementation, number_of_branch)
         width = base_width+2
     return drawing, current_height, spaces
 
-def trunk_and_wreath(drawing, max_width, current_height, incrementation, branches, spaces):
-    #creation of the trunk and wreath
+
+def trunk_and_wreath(drawing, max_width, current_height, spaces):
+    '''
+    creation of the trunk and wreath
+    '''
     for line in range(3):
         drawing.append([])
         if line != 2:
-            #creation of the wreath
+            ''' creation of the wreath '''
             if line == 0:
-                spaces += incrementation+branches
                 wreath = "|"
             elif line == 1:
                 wreath = "0"
             for rows in range(spaces):
                 drawing[line + current_height].append(" ")
             for rows in range(max_width*2-3):
-                if (rows%2 == 1
-                    and not(len(drawing[line + current_height]) >= spaces+(max_width-5)
-                    and len(drawing[line + current_height]) < spaces+(max_width+2))):
-                    #if both condition are True we are on the trunk
+                if (rows % 2 == 1 and
+                    not(
+                        len(drawing[line + current_height]) >=
+                        spaces+(max_width-5) and
+                        len(drawing[line + current_height]) <
+                        spaces+(max_width+2))):
+                    # if both condition are True we are on the trunk
                     drawing[line + current_height].append(wreath)
-                if (rows%2 == 0
-                    and not(len(drawing[line + current_height]) >= spaces+(max_width-4)
-                    and len(drawing[line + current_height]) < spaces+(max_width+1))):
-                    #if both condition are True we are on the trunk
+                if (rows % 2 == 0 and
+                    not(
+                        len(drawing[line + current_height]) >=
+                        spaces+(max_width-4) and
+                        len(drawing[line + current_height]) <
+                        spaces+(max_width+1))):
+                    # if both condition are True we are on the trunk
                     drawing[line + current_height].append(" ")
-                if (len(drawing[line+current_height]) >= spaces+(max_width-4)
-                    and len(drawing[line+current_height]) < spaces+(max_width+1)):
-                    #if both condition are True we are on the trunk
+                if (len(drawing[line+current_height]) >=
+                        spaces+(max_width-4) and
+                        len(drawing[line+current_height]) <
+                        spaces+(max_width+1)):
+                    # if both condition are True we are on the trunk
                     drawing[line+current_height].append("*")
             for rows in range(spaces):
                 drawing[line + current_height].append(" ")
-
-
         else:
-            #creation of the trunk
+            '''creation of the trunk'''
             for row in range(spaces+(max_width-4)):
                 drawing[line + current_height].append(" ")
             for row in range(5):
@@ -160,14 +181,17 @@ def trunk_and_wreath(drawing, max_width, current_height, incrementation, branche
                 drawing[line + current_height].append(" ")
     return drawing
 
+
 def adding_baubles(drawing):
     for line in range(7, len(drawing) - 5):
         for rows in range(len(drawing[line]) - 1):
             if drawing[line][rows] == '*':
                 if drawing[line + 1][rows] == " ":
-                    if drawing[line][rows - 1] == " " or drawing[line][rows + 1] == " ":
+                    if (drawing[line][rows - 1] == " " or
+                            drawing[line][rows + 1] == " "):
                         drawing[line + 1][rows] = "0"
     return drawing
+
 
 def printing(drawing, number_of_trees):
     for i in drawing:
@@ -184,6 +208,5 @@ if len(args) >= 2:
 if len(args) >= 3:
     NUMBER_OF_TREES = int(args[2])
 
-
-tree= creation(NUMBER_OF_BRANCH)
+tree = creation(NUMBER_OF_BRANCH)
 printing(tree, NUMBER_OF_TREES)
