@@ -1,6 +1,6 @@
 # CampusAcademyContest2020
 ASCII Christmas Tree using Python + some documentation about VM
-
+![Christmas Trees](https://user-images.githubusercontent.com/35268109/102633726-1c6d1780-4151-11eb-8d8c-e03de0ffaf79.png)
 ### [PythonScripts](https://github.com/Craybloge/CampusAcademyContest2020/tree/main/PythonScripts)
 find more useful information [here](https://github.com/Craybloge/CampusAcademyContest2020/blob/main/PythonScripts/README_main.md)  
 here you can find all the **scripts** about the projects, alongside with their **algorythm**.
