@@ -1,7 +1,20 @@
 # CampusAcademyContest2020
 ASCII Christmas Tree using Python + some documentation about VM
 
-##### liste de choses à faire:
+### ProgrammePython
+here you can find all the **scripts** about the projects, along with the **algorythm**.
+you can execute the  scripts with 2 int arguments, in order:
+1. The number of branch you want(the size of the tree)
+2. The number of Trees you want
+
+for exemple, typing
+*`python ProgrammePython\main.py 4 2`*
+will draw 2 trees with 4 branch each.
+
+
+below you can find the list of thing done or not finished yet:
+
+##### TO DO list:
 - [x] les sapins en python
   - [x] feuillage
   - [x] tronc
@@ -10,7 +23,7 @@ ASCII Christmas Tree using Python + some documentation about VM
   - [x] étoile
   - [x] bonus 1: taille augmentée
   - [X] bonus 2: 2 sapins
-- [ ] les sapins en algorythme
+- [X] les sapins en algorythme
 - [ ] faire un markdown propre
 - [x] comprendre l'histoire des arguments python (2.1 sur le pdf)
 - [x] vérifier le code avec PEP8 et flake8
