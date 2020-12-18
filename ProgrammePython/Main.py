@@ -2,46 +2,47 @@
 Création d'un sapin
 on peut changer les constantes pour faire varier le sapin, mais pour l'esthétisme
 je recommande de modifier seulement:
-- NUMBER_OF_BRANCH:
+- number_of_branch:
     le nombre de branches (le nombre de pyramide empilée si on veut)
-- NUMBER_OF_TREES :
+- number_of_tree :
     le nombre d'arbres de noël à afficher.
 
 BASE_WIDTH correspond à la largeur de base du sapin,
 elle commence par défaut à 1 et augmente de 2 à chaque branche.
 
-INCREMENTATION correspond à l'élargissement progressif des branches,
+incrementation correspond à l'élargissement progressif des branches,
 par défaut chaque branche s'élargira de 1 de plus que la précédente.
 
 TOTAL_HEIGHT correspond à la hauteur totale actuelle du dessin,
 elle commence donc à 0. NE PAS MODIFIER CETTE VALEUR.
 
-MAX_WIDTH correspond à la taille maximale qu'atteindra le sapin,
+max_width correspond à la taille maximale qu'atteindra le sapin,
 elle sert à calculer le nombre d'espace nécessaire dans le tableau.
 
 """
 import sys
-import constant
-NUMBER_OF_TREES = 2
-NUMBER_OF_BRANCH = 8
-INCREMENTATION = 1
-MAX_WIDTH = int(((8 * NUMBER_OF_BRANCH + 3)) / 2)
 
-def creation(drawing,MAX_WIDTH, width, INCREMENTATION, total_height, NUMBER_OF_BRANCH):
+NUMBER_OF_TREES = 4
+NUMBER_OF_BRANCH = 4
+INCREMENTATION = 1
+
+def creation(max_width, incrementation, number_of_branch):
     """
     ff
     """
-    drawing = adding_star(drawing, MAX_WIDTH)
+
+    drawing = adding_star(max_width)
     total_height = 7
     #creation of the leaves
+    width = 1
     height = 4
 
-    for branches in range(NUMBER_OF_BRANCH):
+    for branches in range(number_of_branch):
         base_width = width
-        spaces = 2 * int(MAX_WIDTH / 2)+2 - width
+        spaces = 2 * int(max_width / 2)+2 - width
         for line in range(height):
             if line == 0:
-                spaces += ((INCREMENTATION+branches)-1)
+                spaces += ((incrementation+branches)-1)
             drawing.append([])
             for position in range(spaces):
                 drawing[line + total_height].append(" ")
@@ -49,13 +50,11 @@ def creation(drawing,MAX_WIDTH, width, INCREMENTATION, total_height, NUMBER_OF_B
                 drawing[line + total_height].append("*")
             for position in range(spaces):
                 drawing[line + total_height].append(" ")
-            spaces -= INCREMENTATION+branches
-            print(spaces)
-            width += (INCREMENTATION+branches) * 2
+            spaces -= incrementation+branches
+            width += (incrementation+branches) * 2
         total_height += height
         width = base_width+2
 
-    
 # def trunk_and_wreath(drawing,)
     #creation of the trunk and wreath
     for line in range(3):
@@ -63,36 +62,42 @@ def creation(drawing,MAX_WIDTH, width, INCREMENTATION, total_height, NUMBER_OF_B
         if line != 2:
             #creation of the wreath
             if line == 0:
-                spaces += INCREMENTATION+branches
+                spaces += incrementation+branches
                 wreath = "|"
             elif line == 1:
                 wreath = "0"
             for rows in range(spaces):
                 drawing[line + total_height].append(" ")
-            for rows in range(MAX_WIDTH*2-3):
-                if rows%2 == 1 and not(len(drawing[line + total_height]) >= spaces+(MAX_WIDTH-5) and len(drawing[line + total_height]) < spaces+(MAX_WIDTH+2)):
+            for rows in range(max_width*2-3):
+                if (rows%2 == 1
+                and not(len(drawing[line + total_height]) >= spaces+(max_width-5)
+                and len(drawing[line + total_height]) < spaces+(max_width+2))):
                     drawing[line + total_height].append(wreath)
-                if rows%2 == 0 and not(len(drawing[line + total_height]) >= spaces+(MAX_WIDTH-4) and len(drawing[line + total_height]) < spaces+(MAX_WIDTH+1)):
+                if (rows%2 == 0
+                and not(len(drawing[line + total_height]) >= spaces+(max_width-4)
+                and len(drawing[line + total_height]) < spaces+(max_width+1))):
                     drawing[line + total_height].append(" ")
-                if len(drawing[line+total_height]) >= spaces+(MAX_WIDTH-4) and len(drawing[line+total_height]) < spaces+(MAX_WIDTH+1):
-                        drawing[line+total_height].append("*")
+                if (len(drawing[line+total_height]) >= spaces+(max_width-4)
+                and len(drawing[line+total_height]) < spaces+(max_width+1)):
+                    drawing[line+total_height].append("*")
             for rows in range(spaces):
                 drawing[line + total_height].append(" ")
 
 
         else:
             #creation of the trunk
-            for row in range(spaces+(MAX_WIDTH-4)):
+            for row in range(spaces+(max_width-4)):
                 drawing[line + total_height].append(" ")
             for row in range(5):
                 drawing[line + total_height].append("*")
-            for row in range(spaces+(MAX_WIDTH-4)):
+            for row in range(spaces+(max_width-4)):
                 drawing[line + total_height].append(" ")
     drawing = adding_baubles(drawing)
     return drawing
 
-def adding_star(drawing, MAX_WIDTH):
-    spaces = MAX_WIDTH-5
+def adding_star(max_width):
+    drawing = []
+    spaces = max_width-5
     star_spaces = 4
     for line in range(7):
         drawing.append([])
@@ -154,16 +159,14 @@ def adding_baubles(drawing):
                         drawing[line + 1][rows] = "0"
     return drawing
 
-def printing(drawing, NUMBER_OF_TREES):
+def printing(drawing, number_of_trees):
     for i in drawing:
-        for _ in range(NUMBER_OF_TREES):
+        for _ in range(number_of_trees):
             for j in i:
                 print(j, end="")
         print('')
 
-drawing= []
-total_height = 0
-base_width = 1
+
 args = sys.argv
 
 if len(args) >= 2:
@@ -171,5 +174,7 @@ if len(args) >= 2:
 if len(args) >= 3:
     NUMBER_OF_TREES = int(args[2])
 
-tree= creation(drawing, MAX_WIDTH, base_width, INCREMENTATION, total_height, NUMBER_OF_BRANCH)
+MAX_WIDTH = int(((8 * NUMBER_OF_BRANCH + 3)) / 2)
+
+tree= creation(MAX_WIDTH, INCREMENTATION, NUMBER_OF_BRANCH)
 printing(tree, NUMBER_OF_TREES)
