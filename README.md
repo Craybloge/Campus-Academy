@@ -13,7 +13,7 @@ for exemple, typing
 will draw 2 trees with 4 branch each.
 
 ### [Documentation Word VM](https://github.com/Craybloge/CampusAcademyContest2020/tree/main/Documentation%20Word%20VM)
-you will find here our record of the VM exercise, you can also find the proof of concept for the exercise [here](https://youtu.be/D1O2vfo7O60)
+you will find here our record of the VM exercise, you can also find the proof of concept for the exercise [here](https://youtu.be/D1O2vfo7O60).  
 We planned use Gitea.io on our vm (we didnt have enough time to learn how to use Docker so we couldnt do this in time)
 
 ### [Documentation](https://github.com/Craybloge/CampusAcademyContest2020/tree/main/Documentation)
@@ -35,4 +35,4 @@ below you can find the list of thing done or not finished yet:
 - [x] vérifier le code avec PEP8 et flake8
 - [x] document word pour le git en vm locale avec les proof of concept (3.1 sur le pdf)
 - [ ] Bonus Réseau (3.2 sur le pdf)
-- [ ] https://gitea.io/en-us/ wesh thomas
+- [ ] https://gitea.io/en-us/ setup git on a vm
