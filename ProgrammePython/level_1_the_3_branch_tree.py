@@ -34,6 +34,7 @@ def creation(number_of_branch):
 
     return drawing
 
+
 def leaves(drawing, max_width, current_height,
            incrementation, number_of_branch):
     '''

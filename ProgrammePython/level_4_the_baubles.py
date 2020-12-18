@@ -32,12 +32,13 @@ def creation(number_of_branch):
     drawing=[]
     drawing, current_height, spaces = leaves(drawing, max_width, 0,
                                              incrementation, number_of_branch)
-    drawing = trunk(drawing,
+    drawing = trunk_and_wreath(drawing,
                     max_width,
                     current_height,
                     (spaces +
                     incrementation +
                     (number_of_branch - 1)))
+    drawing = adding_baubles(drawing)
 
     return drawing
 
@@ -77,16 +78,77 @@ def leaves(drawing, max_width, current_height,
     return drawing, current_height, spaces 
 
 
-def trunk(drawing, max_width, current_height, spaces):
+def trunk_and_wreath(drawing, max_width, current_height, spaces):
+    '''
+    Here we manage both the creation of the trunk and the wreath
+    as we draw line per line and they are on the same lines for
+    the most part.
+
+    We first draw the to lines with wreath and trunk,
+    and then we draw the last line of the trunk.
+    '''
     for line in range(3):
         drawing.append([])
-        '''Creation of the last line of the trunk'''
-        for row in range(spaces+(max_width-4)):
-            drawing[line + current_height].append(" ")
-        for row in range(5):
-            drawing[line + current_height].append("*")
-        for row in range(spaces+(max_width-4)):
-            drawing[line + current_height].append(" ")
+        if line != 2:
+            ''' Creation of the wreath and
+                the two first line of the trunk
+            '''
+            if line == 0:
+                wreath = "|"
+            elif line == 1:
+                wreath = "0"
+            for rows in range(spaces):
+                drawing[line + current_height].append(" ")
+            for rows in range(max_width*2-3):
+                if (rows % 2 == 1 and
+                    not(
+                        len(drawing[line + current_height]) >=
+                        spaces+(max_width-5) and
+                        len(drawing[line + current_height]) <
+                        spaces+(max_width+2))):
+                    # if both condition are True we are on the trunk
+                    drawing[line + current_height].append(wreath)
+                if (rows % 2 == 0 and
+                    not(
+                        len(drawing[line + current_height]) >=
+                        spaces+(max_width-4) and
+                        len(drawing[line + current_height]) <
+                        spaces+(max_width+1))):
+                    # if both condition are True we are on the trunk
+                    drawing[line + current_height].append(" ")
+                if (len(drawing[line+current_height]) >=
+                        spaces+(max_width-4) and
+                        len(drawing[line+current_height]) <
+                        spaces+(max_width+1)):
+                    # if both condition are True we are on the trunk
+                    drawing[line+current_height].append("*")
+            for rows in range(spaces):
+                drawing[line + current_height].append(" ")
+        else:
+            '''Creation of the last line of the trunk'''
+            for row in range(spaces+(max_width-4)):
+                drawing[line + current_height].append(" ")
+            for row in range(5):
+                drawing[line + current_height].append("*")
+            for row in range(spaces+(max_width-4)):
+                drawing[line + current_height].append(" ")
+    return drawing
+
+
+def adding_baubles(drawing):
+    '''
+    Here we add the baubles on the tree.
+    it's a special function because it's the only one
+    that modify existing elements instead of adding new.
+    We simply detect each end of a branch and add a bauble.
+    '''
+    for line in range(1, len(drawing) - 5):
+        for rows in range(len(drawing[line]) - 1):
+            if drawing[line][rows] == '*':
+                if drawing[line + 1][rows] == " ":
+                    if (drawing[line][rows - 1] == " " or
+                            drawing[line][rows + 1] == " "):
+                        drawing[line + 1][rows] = "0"
     return drawing
 
 
@@ -116,3 +178,8 @@ if len(args) >= 3:
 # it's where we launch the drawing of the tree
 tree = creation(NUMBER_OF_BRANCH)
 printing(tree, NUMBER_OF_TREES)
+
+
+
+
+

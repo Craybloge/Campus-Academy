@@ -41,6 +41,7 @@ def creation(number_of_branch):
 
     return drawing
 
+
 def leaves(drawing, max_width, current_height,
            incrementation, number_of_branch):
     '''
@@ -74,6 +75,7 @@ def leaves(drawing, max_width, current_height,
         current_height += height
         width = base_width+2
     return drawing, current_height, spaces 
+
 
 def trunk_and_wreath(drawing, max_width, current_height, spaces):
     '''
