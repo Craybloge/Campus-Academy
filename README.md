@@ -1,16 +1,17 @@
 # CampusAcademyContest2020
 ASCII Christmas Tree using Python + some documentation about VM
 
-### ProgrammePython
-here you can find all the **scripts** about the projects, along with the **algorythm**.
+### PythonScripts
+here you can find all the **scripts** about the projects, alongside with their **algorythm**.
 you can execute the  scripts with 2 int arguments, in order:
 1. The number of branch you want(the size of the tree)
 2. The number of Trees you want
 
 for exemple, typing
-*`python ProgrammePython\main.py 4 2`*
+*`python PythonScripts\main.py 4 2`*
 will draw 2 trees with 4 branch each.
 
+### Documentation Word VM
 
 below you can find the list of thing done or not finished yet:
 
