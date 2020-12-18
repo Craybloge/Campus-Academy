@@ -1,7 +1,7 @@
 # CampusAcademyContest2020
 ASCII Christmas Tree using Python + some documentation about VM
 
-### PythonScripts
+### [PythonScripts](https://github.com/Craybloge/CampusAcademyContest2020/tree/main/PythonScripts)
 find more useful information [here](https://github.com/Craybloge/CampusAcademyContest2020/blob/main/PythonScripts/README_main.md)  
 here you can find all the **scripts** about the projects, alongside with their **algorythm**.
 you can execute the  scripts with 2 int arguments, in order:
@@ -12,10 +12,12 @@ for exemple, typing
 *`python PythonScripts\main.py 4 2`*
 will draw 2 trees with 4 branch each.
 
-### Documentation Word VM
+### [Documentation Word VM](https://github.com/Craybloge/CampusAcademyContest2020/tree/main/Documentation%20Word%20VM)
 We will use Gitea.io on our vm
-below you can find the list of thing done or not finished yet:
 
+### [Documentation](https://github.com/Craybloge/CampusAcademyContest2020/tree/main/Documentation)
+
+below you can find the list of thing done or not finished yet:
 ##### TO DO list:
 - [x] les sapins en python
   - [x] feuillage
