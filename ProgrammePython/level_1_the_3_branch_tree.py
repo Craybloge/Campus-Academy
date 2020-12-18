@@ -14,8 +14,6 @@ NUMBER_OF_TREES = 1
 NUMBER_OF_BRANCH = 3
 
 
-
-
 def creation(number_of_branch):
     """
     Here we're going to create variables needed to draw the tree,
