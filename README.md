@@ -2,6 +2,7 @@
 ASCII Christmas Tree using Python + some documentation about VM
 
 ### PythonScripts
+find more useful information here: PythonScripts\exercices\README_main.md  
 here you can find all the **scripts** about the projects, alongside with their **algorythm**.
 you can execute the  scripts with 2 int arguments, in order:
 1. The number of branch you want(the size of the tree)
@@ -12,7 +13,7 @@ for exemple, typing
 will draw 2 trees with 4 branch each.
 
 ### Documentation Word VM
-
+We will use Gitea.io on our vm
 below you can find the list of thing done or not finished yet:
 
 ##### TO DO list:
