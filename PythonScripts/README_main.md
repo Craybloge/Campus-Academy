@@ -1,4 +1,4 @@
-Considering all the scripts of the exercices are simpler version of the script main.py, so they all work exactly the same way,
+Considering all the scripts of the exercises are simpler version of the script main.py, so they all work exactly the same way,
 so I will only write a README for this one.
 ## Creation of a/several Christmas Trees
 to use the scripts you can either execute them without arguments, they'll use default parameters.
