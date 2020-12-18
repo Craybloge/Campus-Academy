@@ -27,7 +27,7 @@ def creation(number_of_branch):
     in the 2-dimensionnal list.
     """
     incrementation = 1
-    max_width = int(((8 * NUMBER_OF_BRANCH + 3)) / 2)
+    max_width = int((8 * NUMBER_OF_BRANCH + 3) / 2)
 
     drawing, current_height = adding_star(max_width)
     drawing, current_height, spaces = leaves(drawing,
