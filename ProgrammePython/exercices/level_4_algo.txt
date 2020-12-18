@@ -1,0 +1,91 @@
+nombre_de_branche est un entier
+nombre_de_branche =3
+dessin est une liste à 2 dimensions
+
+appeler la fonction qui dessine les feuilles avec nombre_de_branche en paramètre et attribuer sa valeur à arbre:
+on appelle ensuite la fonction qui rajoute le tronc et les guirlandes, on lui envoie notre arbre et elle nous le rend avec un tronc et des guirlandes
+on appelle ensuite la fonction qui va rajouter des boules de noel à l'extrémité des branches, on lui envoie l'arbre et elle nous le rend avec les boules
+
+pour i allant de 0 à longueur de arbre:
+début pour
+afficher la liste d'index I de arbre
+fin pour
+
+fonction dessin avec un paramètre (nombre_de_branche qui est un entier):
+début fonction 
+    hauteur est un entier  
+    hauteur = 4  
+    largeur est un entier
+    largeur = 1
+    calculer le nombre d'espace qui sera un entier
+
+    pour branches de 0 à nombre_de_branche:
+        début  pour
+        pour ligne de 0 à hauteur:  
+            début  pour
+            on rajoute une liste dans dessin
+            pour colonne allant de 0 au nombre d'espace nécessaire:
+                début pour
+                ajouter un élément " " dans la liste d'index ligne de dessin
+                fin pour
+            pour colonne allant de 0 à largeur:
+                début pour
+                ajouter un élément "*" dans la liste d'index ligne de dessin
+                fin pour
+            pour colonne allant de 0 au nombre d'espace nécessaire:
+                début pour
+                ajouter un élément " " dans la liste d'index ligne de dessin
+                fin pour
+            calculer le nombre d'espace pour la ligne suivante
+            calculer la largeur pour la ligne suivante
+        fin pour
+    retourner dessin 
+fin fonction
+  
+
+fonction rajout_du_tronc_et_guirlandes avec un paramètre (dessin qui est une liste de 2 dimensions)
+début fonction
+    pour ligne allant de 0 à 3:
+        début pour
+        si ligne est inférieur à 2 alors:
+            début si
+            pour colonne allant de 0 à l'emplacement du tronc:
+                    début pour
+                    ajouter une fois sur deux la guirlande
+                    fin pour
+                pour colonne allant de 0 à 5:
+                    début pour
+                    ajouter un élément "*" dans la liste d'index ligne de dessin
+                    fin pour
+                pour colonne allant de 0 à l'emplacement du tronc::
+                    début pour
+                    ajouter une fois sur des la guirlande
+                    fin pour
+            fin si
+        sinon:
+            début sinon
+            pour colonne allant de 0 au nombre d'espace nécessaire:
+                    début pour
+                    ajouter un élément " " dans la liste d'index ligne de dessin
+                    fin pour
+                pour colonne allant de 0 à 5:
+                    début pour
+                    ajouter un élément "*" dans la liste d'index ligne de dessin
+                    fin pour
+                pour colonne allant de 0 au nombre d'espace nécessaire:
+                    début pour
+                    ajouter un élément " " dans la liste d'index ligne de dessin
+                    fin pour
+            fin pour
+    retourner dessin
+fin fonction
+
+fonction boule_de_noel avec un paramètre (dessin qui est une liste de 2 dimensions):
+début fonction
+    si extrémité de branche alors:
+        début si
+        remplacer en dessous de l'extrémité l'espace par un élément "0"
+        fin si
+    retourner dessin
+fin fonction
+
