@@ -1,0 +1,13 @@
+nombre_de_branche est un entier
+nombre_de_branche =3
+
+appeler la fonction qui dessine les feuilles avec nombre_de_branche en paramètre:  
+début  
+    hauteur est un entier  
+    hauteur = 4  
+    pour branches de 0 à nombre_de_branche:
+    début  
+        pour ligne de 0 à hauteur:  
+        début  
+            
+
