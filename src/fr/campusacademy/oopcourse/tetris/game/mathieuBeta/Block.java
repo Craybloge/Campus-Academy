@@ -9,5 +9,10 @@ public class Block {
 	 this.color = color;
 	}
 
+	@Override
+	public String toString() {
+		return  "D";
+	}
+
 
 }

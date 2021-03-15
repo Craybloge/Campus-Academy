@@ -141,7 +141,10 @@ public class Launcher extends BasicGame {
 		Input input = arg0.getInput();
 
 		if (input.isKeyDown(Input.KEY_LEFT)) {
-
+			posx--;
+		}
+		if (input.isKeyDown(Input.KEY_RIGHT)) {
+			posx++;
 		}
 
 		for (Block[] lines : playfield) {
