@@ -1,4 +1,5 @@
 package fr.campusacademy.oopcourse.tetris.game.mathieuBeta;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
@@ -7,10 +8,11 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Launcher extends BasicGame{
-	static Block [][] playfield = new Block[20][10];
+public class Launcher extends BasicGame {
+	static Block[][] playfield = new Block[20][10];
 	Piece currentPiece;
 	int position = 0;
 	int x = 0;
@@ -19,23 +21,21 @@ public class Launcher extends BasicGame{
 	int max = 10;
 	Color purple = new Color(128, 0, 128);
 	boolean alternance = true;
-	
-	
+	int i = 0;
+
 	public Launcher(String title) {
 		super(title);
 	}
-	
-
 
 	public static void main(String[] args) {
 
 		initializing();
-		
-		
+
 	}
+
 	public void checkCompleteLine(Block[][] playfield) {
 		int count = 0;
-		
+
 		for (int y = 0; y < playfield.length; y++) {
 			for (int x = 0; x < playfield[0].length; x++) {
 				if (playfield[y][x] != null) {
@@ -44,27 +44,23 @@ public class Launcher extends BasicGame{
 			}
 			if (count == 10) {
 				for (int x = 0; x < playfield[0].length; x++) {
-					playfield[y][x] = playfield[y-1][x];
+					playfield[y][x] = playfield[y - 1][x];
 				}
 			}
 			count = 0;
-		 
-		
+
 		}
 	}
-	
+
 	public static void initializing() {
 
-		try
-		{
+		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Launcher("Simple Slick Game"));
 			appgc.setDisplayMode(500, 1000, false);
-			appgc.setTargetFrameRate(2);
+			appgc.setTargetFrameRate(100);
 			appgc.start();
-		}
-		catch (SlickException ex)
-		{
+		} catch (SlickException ex) {
 			Logger.getLogger(MathieuBetaTetris.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
@@ -73,13 +69,14 @@ public class Launcher extends BasicGame{
 		if (alternance) {
 			alternance = false;
 			return new Piece("s");
-		}else {
+		} else {
 			alternance = true;
-			return new Piece("t");
-			
+			return new Piece("l");
+
 		}
-		
+
 	}
+
 	@Override
 	public void render(GameContainer arg0, Graphics g) throws SlickException {
 		x = 0;
@@ -90,66 +87,68 @@ public class Launcher extends BasicGame{
 					g.setColor(piece.color);
 					g.fillRect(x, y, 50, 50);
 				}
-				x += 50; 
+				x += 50;
 			}
 			y += 50;
 			x = 0;
 		}
-		
+
+	}
+
+	public void pieceMovement(Block[][] playfield) {
+		i++;
+		if (i == 50) {
+
+			boolean endOfFall = false;
+			if (position == 0) {
+				currentPiece = createNewPiece();
+			}
+			for (int[] coords : currentPiece.coord) {
+				if (position < playfield.length - coords[0] - 1) {
+					if (playfield[position + coords[0] + 1][posx + coords[1]] != null) {
+						endOfFall = true;
+
+					}
+				} else {
+					endOfFall = true;
+				}
+			}
+			for (int[] coords : currentPiece.coord) {
+				if (position != 0) {
+					playfield[position + coords[0] - 1][posx + coords[1]] = null;
+				}
+			}
+			for (int[] coords : currentPiece.coord) {
+				playfield[position + coords[0]][posx + coords[1]] = new Block(currentPiece.color);
+			}
+			position++;
+			if (endOfFall) {
+				position = 0;
+			}
+			i = 0;
+		}
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
-		boolean endOfFall = false;
-		if(position == 0) {
-			currentPiece = createNewPiece();
-		}
-		position++;
-		for (int[] coords : currentPiece.coord) {
-			if (position < 19 - coords[0]) {
-				if (playfield[position + coords[0] + 1][posx + coords[1]] != null) {
-				endOfFall = true;
-				}
-		}else {
-			endOfFall = true;
-		}
-		}
-		if (!endOfFall) {
-			for (int[] coords : currentPiece.coord) {
-				playfield[position + coords[0] - 1][posx + coords[1]] = null;
-			}
-		
-			for (int[] coords : currentPiece.coord) {
-					playfield[position + coords[0]][posx + coords[1]] = new Block(currentPiece.color);
-				
-			}
-		}else {
-			position = 0;
-		}
-		
-		
-//		if (position<20) {
-//			if (playfield[position][posx] == null) {
-//				playfield[position][posx] = new Piece();
-//				playfield[position-1][posx] = null;
-//			}else {
-//				playfield[position-1][posx] = new Piece();
-//			}
-			
-//		}
+		pieceMovement(playfield);
+		Input input = arg0.getInput();
 
-		
+		if (input.isKeyDown(Input.KEY_LEFT)) {
+
+		}
+
 		for (Block[] lines : playfield) {
 			for (Block piece : lines) {
 				if (piece == null) {
 					System.out.print(" ");
-				}else {
+				} else {
 					System.out.print(piece);
 				}
 			}
@@ -157,7 +156,5 @@ public class Launcher extends BasicGame{
 		}
 		checkCompleteLine(playfield);
 	}
-
-	
 
 }
