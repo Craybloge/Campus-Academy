@@ -58,7 +58,7 @@ public class Launcher extends BasicGame {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Launcher("Simple Slick Game"));
 			appgc.setDisplayMode(500, 1000, false);
-			appgc.setTargetFrameRate(100);
+			appgc.setTargetFrameRate(20);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(MathieuBetaTetris.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,7 +97,7 @@ public class Launcher extends BasicGame {
 
 	public void pieceMovement(Block[][] playfield) {
 		i++;
-		if (i == 50) {
+		if (i == 10) {
 
 			boolean endOfFall = false;
 			if (position == 0) {
@@ -140,13 +140,36 @@ public class Launcher extends BasicGame {
 		pieceMovement(playfield);
 		Input input = arg0.getInput();
 
+		
+		
 		if (input.isKeyDown(Input.KEY_LEFT)) {
-			posx--;
+			if (position != 0) {
+				for (int[] coords : currentPiece.coord) {
+
+					playfield[position + coords[0] - 1][posx + coords[1]] = null;
+				}
+			}
+			for (int[] coords : currentPiece.coord) {
+				playfield[position + coords[0]][posx + coords[1] - 1] = new Block(currentPiece.color);
+			}
 		}
+		
+		
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
+			if (position != 0) {
+				for (int[] coords : currentPiece.coord) {
+
+					playfield[position + coords[0] - 1][posx + coords[1]] = null;
+				}
+			}
 			posx++;
+			for (int[] coords : currentPiece.coord) {
+				playfield[position + coords[0]][posx + coords[1] ] = new Block(currentPiece.color);
+			}
 		}
 
+		
+		
 		for (Block[] lines : playfield) {
 			for (Block piece : lines) {
 				if (piece == null) {
