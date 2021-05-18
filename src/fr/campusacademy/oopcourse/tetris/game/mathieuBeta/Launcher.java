@@ -1,5 +1,6 @@
 package fr.campusacademy.oopcourse.tetris.game.mathieuBeta;
 
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
@@ -11,24 +12,27 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+
 public class Launcher extends BasicGame {
 	static Block[][] playfield = new Block[20][10];
 	Piece currentPiece;
-	int position = 0;
+	int posy = 0;
 	int x = 0;
 	int y = 0;
 	int posx = 0;
 	int max = 10;
 	Color purple = new Color(128, 0, 128);
 	boolean alternance = true;
-	int i = 0;
+	int i = 0; 
+	int rotation = 0;
+	String[] pool = new String[0];
 
 	public Launcher(String title) {
 		super(title);
 	}
 
 	public static void main(String[] args) {
-
+		Input.disableControllers();
 		initializing();
 
 	}
@@ -65,18 +69,48 @@ public class Launcher extends BasicGame {
 		}
 	}
 
-	public Piece createNewPiece() {
-		if (alternance) {
-			alternance = false;
-			return new Piece("s");
-		} else {
-			alternance = true;
-			return new Piece("l");
+	public String[] removePieceFromArray(int index, String[] pool) {
+		String[] copy = new String[pool.length - 1];
 
+		for (int k = 0, j = 0; k < pool.length; k++) {
+		    if (k != index) {
+		        copy[j++] = pool[k];
+		    }
 		}
+		return pool = copy;
+	}
+	public String[] getNewPool() {
+		Random rand=new Random();
+		String[] pool = {"t", "s", "l", "i", "o", "j", "z"};
+		String[] orderedPool= new String[7];
+		for (int i = 0; i < 7; i++) {
+			int next = rand.nextInt(7-i);
+			orderedPool[i] = pool[next];
+			System.out.println(orderedPool[i]);
+			
+		}
+		return orderedPool;
+	}
+	public Piece createNewPiece() {
+		posx = 3;
+		if (pool.length == 0) {
+			pool = getNewPool();
+		}
+		return new Piece(pool[0], posx,posy);
+
+		
 
 	}
 
+	public void setPiece() {
+		for (int i = 0; i < 4; i++) {
+			playfield[currentPiece.getPiecePosY(i)][currentPiece.getPiecePosX(i)] = new Block(
+																							currentPiece.getColor(),
+																							currentPiece.getOneCoordX(i),
+																							currentPiece.getOneCoordY(i)
+																							);
+		}
+	}
 	@Override
 	public void render(GameContainer arg0, Graphics g) throws SlickException {
 		x = 0;
@@ -100,12 +134,15 @@ public class Launcher extends BasicGame {
 		if (i == 10) {
 
 			boolean endOfFall = false;
-			if (position == 0) {
+			if (posy == 0) {
 				currentPiece = createNewPiece();
+				pool = removePieceFromArray(0, pool);
+				setPiece();
 			}
-			for (int[] coords : currentPiece.coord) {
-				if (position < playfield.length - coords[0] - 1) {
-					if (playfield[position + coords[0] + 1][posx + coords[1]] != null) {
+			for (int i = 0; i < 4; i++) {
+				if (currentPiece.getPosy() < playfield.length - currentPiece.getOneCoordY(i)) {
+					if (playfield[currentPiece.getPiecePosY(i)+1][currentPiece.getPiecePosX(i)] != null) {
+						System.out.println("ok");
 						endOfFall = true;
 
 					}
@@ -113,17 +150,16 @@ public class Launcher extends BasicGame {
 					endOfFall = true;
 				}
 			}
-			for (int[] coords : currentPiece.coord) {
-				if (position != 0) {
-					playfield[position + coords[0] - 1][posx + coords[1]] = null;
+			for (int i = 0; i < 4; i++) {
+				if (currentPiece.getPosy() != 0) {
+					playfield[currentPiece.getPiecePosY(i)][currentPiece.getPiecePosX(i)] = null;
 				}
 			}
-			for (int[] coords : currentPiece.coord) {
-				playfield[position + coords[0]][posx + coords[1]] = new Block(currentPiece.color);
-			}
-			position++;
+			posy++;
+			currentPiece.setPosy(posy);
+			setPiece();
 			if (endOfFall) {
-				position = 0;
+				posy = 0;
 			}
 			i = 0;
 		}
@@ -143,30 +179,43 @@ public class Launcher extends BasicGame {
 		
 		
 		if (input.isKeyDown(Input.KEY_LEFT)) {
-			if (position != 0) {
-				for (int[] coords : currentPiece.coord) {
-
-					playfield[position + coords[0] - 1][posx + coords[1]] = null;
+			if (currentPiece.getPosy() != 0) {
+				for (int i = 0; i < 4; i++) {
+					playfield[currentPiece.getPiecePosY(i)][currentPiece.getPiecePosX(i)] = null;
 				}
 			}
-			for (int[] coords : currentPiece.coord) {
-				playfield[position + coords[0]][posx + coords[1] - 1] = new Block(currentPiece.color);
-			}
+			posx--;
+			currentPiece.setPosx(posx);
+			setPiece();
 		}
 		
 		
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
-			if (position != 0) {
-				for (int[] coords : currentPiece.coord) {
+			if (currentPiece.getPosy() != 0) {
+				for (int i = 0; i < 4; i++) {
 
-					playfield[position + coords[0] - 1][posx + coords[1]] = null;
+					playfield[currentPiece.getPiecePosY(i)][currentPiece.getPiecePosX(i)] = null;
 				}
 			}
+			
 			posx++;
-			for (int[] coords : currentPiece.coord) {
-				playfield[position + coords[0]][posx + coords[1] ] = new Block(currentPiece.color);
+			currentPiece.setPosx(posx);
+			setPiece();
+		}
+		if (input.isKeyDown(Input.KEY_UP)) {
+			if (rotation == 0) {
+				rotation = 1;
+				currentPiece.setPosx(currentPiece.getPosy());
+				currentPiece.setPosy(currentPiece.getPosx());
+				setPiece();
+			}
+			if (rotation == 1) {
+				rotation = 2;
+				
+				
 			}
 		}
+		
 
 		
 		
