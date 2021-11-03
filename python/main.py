@@ -206,17 +206,47 @@ class Game():
 
 # lancement du script, génère le pool de pokémon puis lance le jeu
 if __name__ == "__main__" :
-    sum = 0
-    pokeliste = {}
-    for i in range (1, 898):
-        pokeliste[i] = Poke(i)
-        print(pokeliste[i].pokemon.name)
-        sum += pokeliste[i].spawnrate
+    import mysql.connector
+    from mysql.connector import errorcode
+    from constantes import CONFIG
 
-    game = Game(pokeliste)
-    print("votre starter est: ", game.starter.pokemon.name, " et sa rareté est: ", game.starter.spawnrate)
+    try:
+        db = mysql.connector.connect(**CONFIG)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = db.cursor()
+        
+        pokemon_db = Poke(cursor)
+        result = pokemon_db.pokedex_count()
+        for i in result: print(result)
 
-    while True:
-        game.journey()
+        # table.create(nom = "mentali")
+        # result = table.get_where_id(2)
+        # for i in result : print(i)
+        # table.update(15, nom="pyroli")
+        # table.delete(15)
+        # table.print_all()
+        db.commit()
+        db.close()
+
+        sum = 0
+        pokeliste = {}
+
+        for i in range (1, 898):
+            pokeliste[i] = Poke(i)
+            print(pokeliste[i].pokemon.name)
+            sum += pokeliste[i].spawnrate
+
+        game = Game(pokeliste)
+        print("votre starter est: ", game.starter.pokemon.name, " et sa rareté est: ", game.starter.spawnrate)
+
+        while True:
+            game.journey()
         
 

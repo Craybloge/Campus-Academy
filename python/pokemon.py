@@ -67,3 +67,8 @@ class Pokemon(Model):
         for i in pokeliste:
             if spawn >= pokeliste[i].startSpawn and spawn < pokeliste[i].endSpawn:
                 return pokeliste[i]
+
+    def pokedex_count(self):
+        query = "  SELECT COUNT(*) FROM " + self.nom
+        print(query)
+        return self.cursor
