@@ -16,7 +16,13 @@ else:
     cursor = db.cursor()
     
     table = Pokemon(cursor)
+    # table.create(nom = "mentali")
+    # result = table.get_where_id(2)
+    # for i in result : print(i)
+    # table.update(15, nom="pyroli")
+    # table.delete(15)
     table.print_all()
+    db.commit()
     db.close()
 
 

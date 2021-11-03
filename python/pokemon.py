@@ -53,8 +53,9 @@ class Pokemon(Model):
             self.__class__.max += self.spawnrate
             self.endSpawn = self.__class__.max
         else:
-            self.nom = "Pokémons"
-            
+            self.nom = "pokémons"
+            self.attributs = ["nom"]
+
     def __repr__(self):
     #c'est la méthode qui permet de gérer ce qui va s'afficher quand on va utiliser la fonction print sur l'objet
         return ("nom: " + self.pokemon.name + "  rareté: " + str(self.spawnrate) + "   resistance: " + str(self.resistance) + " damage: " + str(self.damage) + " type: " + str(self.pokemon.types))
