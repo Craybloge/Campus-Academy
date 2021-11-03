@@ -1,5 +1,6 @@
 import random, string, time, pypokedex
 from typing import List
+from model import Model
 from pokeball import Pokeball
 
 # 1 - créer une liste des pokémons, incluant une chance de spawn (0% - 100%) 
@@ -37,19 +38,23 @@ from pokeball import Pokeball
 #       -> inventaire objets
 #       -> inventaire pokemon
 
-class Pokemon():
+class Pokemon(Model):
     max = 0
 
-    def __init__(self, id):
-        self.timeStart = time.time_ns()           
-        self.pokemon = pypokedex.get(dex = id)
-        self.spawnrate = random.randint(0,100)
-        self.resistance = random.randint(0,50)
-        self.damage = random.randint(0,100)
-        self.startSpawn = self.__class__.max
-        self.__class__.max += self.spawnrate
-        self.endSpawn = self.__class__.max
-
+    def __init__(self, cursor, id = None):
+        self.cursor = cursor
+        if id != None:
+            self.timeStart = time.time_ns()           
+            self.pokemon = pypokedex.get(dex = id)
+            self.spawnrate = random.randint(0,100)
+            self.resistance = random.randint(0,50)
+            self.damage = random.randint(0,100)
+            self.startSpawn = self.__class__.max
+            self.__class__.max += self.spawnrate
+            self.endSpawn = self.__class__.max
+        else:
+            self.nom = "Pokémons"
+            
     def __repr__(self):
     #c'est la méthode qui permet de gérer ce qui va s'afficher quand on va utiliser la fonction print sur l'objet
         return ("nom: " + self.pokemon.name + "  rareté: " + str(self.spawnrate) + "   resistance: " + str(self.resistance) + " damage: " + str(self.damage) + " type: " + str(self.pokemon.types))
