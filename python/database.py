@@ -7,7 +7,7 @@ config = {
   'database': 'CA_pokemon_course',
   'raise_on_warnings': True
 }
-print("bonjour")
+
 try:
   db = mysql.connector.connect(**config)
 except mysql.connector.Error as err:
@@ -25,5 +25,4 @@ else:
   for i in cursor:
       print(i)
 
-  print("au revoir")
   db.close()
