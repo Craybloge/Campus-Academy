@@ -1,5 +1,5 @@
 import random
-from CONSTANTE import BALLDATA
+from constantes import BALLDATA
 
 
 class Pokeball():
