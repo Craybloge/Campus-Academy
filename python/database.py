@@ -25,4 +25,27 @@ else:
   for i in cursor:
       print(i)
 
+  print("au revoir")
   db.close()
+
+
+
+  class CRUD():
+
+
+
+
+    def __init__(self, nom):
+      self.nom = nom
+
+
+
+
+
+    def __repr__(self):
+      return self.nom
+    
+    def CREATE(self , values):
+      qry="INSERT INTO %s ( . , . , .) VALUES ('.',.,.);"
+
+      
