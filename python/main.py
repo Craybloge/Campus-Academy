@@ -2,18 +2,25 @@ import random, pypokedex, copy
 from os import system, name
 from pprint import pprint
 import inquirer
+from model import Model
 from pokemon import Pokemon as Poke
 from pokeball import Pokeball as Ball
 
 
-class Game():
+class Game(Model):
 
-    def __init__(self, pokelist):  
+    def __init__(self, cursor, pokelist):  
+        self.cursor = cursor
+        self.nom = "pokémon_inventory"
+        self.attributs = ["Pokémons_idPokémons", "Health", "Attack", "Defense"]
+        
         self.pokepool = pokelist      
         self.starter = copy.copy(Poke.spawn(self.pokepool))
+        
         self.pokedex = [self.starter]
         self.money = 2000
         self.inventory = {"pokeball" : 10, "superball" : 1, "hyperball" : 2, "masterball": 1}
+
         
     def journey(self):
     #la méthode qui affiche le menu principal et qui redirige le joueur
@@ -74,6 +81,7 @@ class Game():
         print("---------------------------------")
         for i in self.pokedex:
             print(i)
+        # self.print_all()
 
         print("---------------------------------")  
         print("liste de votre inventaire:")
@@ -223,8 +231,16 @@ if __name__ == "__main__" :
         cursor = db.cursor()
         
         pokemon_db = Poke(cursor)
-        result = pokemon_db.pokedex_count()
-        for i in result: print(result)
+        result = pokemon_db.pokedex_count().fetchone()
+        result = result[0]
+        if result != 10:
+            pokemon_db.delete_all()
+            db.commit()
+            
+
+            for i in range (1, 11):
+                pokemon_db.create(nom=Poke(cursor,i).pokemon.name, pokedex_id=str(i))
+            pokemon_db.print_all()
 
         # table.create(nom = "mentali")
         # result = table.get_where_id(2)
@@ -233,20 +249,25 @@ if __name__ == "__main__" :
         # table.delete(15)
         # table.print_all()
         db.commit()
-        db.close()
 
         sum = 0
         pokeliste = {}
+        result = pokemon_db.get_all().fetchall()
+        for i in result:
+            pokeliste[i[2]] = Poke(cursor, i[2])
+            print(pokeliste[i[2]])
+            sum += pokeliste[i[2]].spawnrate
 
-        for i in range (1, 898):
-            pokeliste[i] = Poke(i)
-            print(pokeliste[i].pokemon.name)
-            sum += pokeliste[i].spawnrate
 
-        game = Game(pokeliste)
-        print("votre starter est: ", game.starter.pokemon.name, " et sa rareté est: ", game.starter.spawnrate)
+        game = Game(cursor, pokeliste)
+        game.delete_all()
+        game.create(Pokémons_idPokémons=game.starter.pokemon.dex, Health=game.starter.pokemon.base_stats[0], Attack=game.starter.damage, Defense=game.starter.resistance)
+        # self.attributs = ["Pokémons_idPokémons", "Objects_idObjects", "Health", "Attack", "Defense"]
+        print("votre starter est: ", game.print_all)
 
         while True:
             game.journey()
-        
+            db.commit()
+        db.close()
+
 

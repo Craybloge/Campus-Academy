@@ -54,7 +54,7 @@ class Pokemon(Model):
             self.endSpawn = self.__class__.max
         else:
             self.nom = "pokémons"
-            self.attributs = ["nom"]
+            self.attributs = ["nom", "pokedex_id"]
 
     def __repr__(self):
     #c'est la méthode qui permet de gérer ce qui va s'afficher quand on va utiliser la fonction print sur l'objet
@@ -69,6 +69,6 @@ class Pokemon(Model):
                 return pokeliste[i]
 
     def pokedex_count(self):
-        query = "  SELECT COUNT(*) FROM " + self.nom
-        print(query)
+        query = "SELECT COUNT(*) FROM " + self.nom
+        self.cursor.execute(query)
         return self.cursor

@@ -26,14 +26,14 @@ class Model():
             query += i + ", "
         query = query[:-2] + ") VALUES ('"
         for i in self.attributs:
-            query += kwargs[i] + "', '"
+            query += str(kwargs[i]) + "', '"
         query = query[:-3] + ");"
         self.cursor.execute(query)
 
     def update(self, id, **kwargs):
         query = "UPDATE " + self.nom + " SET "
         for i in kwargs:
-            query += i + "='"+kwargs[i] + "', "
+            query += i + "='"+ str(kwargs[i]) + "', "
         query = query[:-2]
         query += " WHERE id" + self.nom + " = " + str(id)
         self.cursor.execute(query)
@@ -52,7 +52,6 @@ class Model():
             for j in i:
                 list_to_print[compteur].append(j)
             compteur += 1
-        print(list_to_print)
 
         liste_nb_max = [0]*len(list_to_print[0])
         temp = [0]*len(list_to_print[0])
@@ -67,3 +66,8 @@ class Model():
             for j in range(len(list_to_print[i])):
                 print(" ", list_to_print[i][j], " " *
                     (liste_nb_max[j] - len(str(list_to_print[i][j]))), "|", end="")
+        print("")
+
+    def delete_all(self):
+        query = "DELETE FROM " + self.nom + " WHERE id" + self.nom + " > 0"
+        self.cursor.execute(query)
