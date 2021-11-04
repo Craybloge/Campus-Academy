@@ -135,12 +135,13 @@ class Game(Model):
         if pokeball["pokeball"] == "annuler":
             self.combatOptions()
         else:
-            pokeball = Ball(pokeball["pokeball"])
+            pokeball = Ball(self.cursor, pokeball["pokeball"])
             self.inventory[pokeball.name] -= 1
             print("vous lancez une ", pokeball.name, " sur ", self.pokemonSauvage.pokemon.name, "!")
             if pokeball.tryCatch(self.pokemonSauvage):
                 print("félicitation! le pokémon est capturé et il est ajouté à votre pokédex!")
                 self.pokedex.append(self.pokemonSauvage)
+                self.add_pokemon_to_inventory(self.pokemonSauvage)
             else:
                 print("la tentative échoue! le pokémon se libère, voulez vous réessayer ou tenter autre chose?")
                 question = [
@@ -211,6 +212,10 @@ class Game(Model):
         if name == 'nt':
             _ = system('cls')
 
+    def add_pokemon_to_inventory(self, pokemon):
+        game.create(Pokémons_idPokémons=pokemon.pokemon.dex, Health=pokemon.pokemon.base_stats[0], Attack=pokemon.damage, Defense=pokemon.resistance)
+
+
 
 # lancement du script, génère le pool de pokémon puis lance le jeu
 if __name__ == "__main__" :
@@ -261,7 +266,7 @@ if __name__ == "__main__" :
 
         game = Game(cursor, pokeliste)
         game.delete_all()
-        game.create(Pokémons_idPokémons=game.starter.pokemon.dex, Health=game.starter.pokemon.base_stats[0], Attack=game.starter.damage, Defense=game.starter.resistance)
+        game.add_pokemon_to_inventory(game.starter)
         # self.attributs = ["Pokémons_idPokémons", "Objects_idObjects", "Health", "Attack", "Defense"]
         print("votre starter est: ", game.print_all)
 

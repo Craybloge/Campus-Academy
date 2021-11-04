@@ -10,7 +10,8 @@ class Pokeball(Model):
         self.cursor = cursor
         if name != None:         
             self.name = name
-            for i in self.cursor.execute("SELECT Power FROM pokeballs WHERE Name = '" + self.name + "'"): self.basePower = i+1
+            self.cursor.execute("SELECT Power FROM pokeballs WHERE Name = '" + self.name + "'")
+            self.basePower = int(cursor.fetchone()[0])
             self.type = BALLDATA[name][1]
         else:
             self.nom = "pokeballs"
