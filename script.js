@@ -20,7 +20,6 @@ function addTask(input, compteur) {
     const checkbox = document.createElement('input')
     checkbox.setAttribute("type", "checkbox")
     checkbox.setAttribute("id", "tache" + compteur + "-checkbox")
-    // checkbox.setAttribute("onclick", "checked(" + "tache" + compteur + "-label, \"" + input + "\")")
 
     const label = document.createElement('label')
     label.setAttribute("for", "tache" + compteur + "-checkbox")
