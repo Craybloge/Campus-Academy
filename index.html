@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Exercice webjs</title>
+    <meta name="description" content="exercice de webjs">
+    <meta name="author" content="Mathieu Pithon">
+
+    <meta property="og:title" content="Exercice webjs">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.spirit-forest.com/">
+    <meta property="og:description" content="exercice de webjs">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header class="header">
+        <nav class="header-menu">
+            <h1>Application liste des taches</h1>
+            <ul class="header-liens">
+                <li><a href="#addTask"> Ajouter une tache</a></li>
+                <li><a href="#ListTask"> Liste des taches</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div>
+            <h2>Ajouter une tâche</h2>
+            <form action="">
+                <label for="task">Tâche</label>
+                <input type="text" id="name" name="task">
+                <button type="button" id="addTask">Ajouter</button>
+            </form>
+        </div>
+        <div>
+            <h2>Liste des tâches</h2>
+            <ul id="taskList">
+            </ul>
+        </div>
+        <script src="script.js"></script>
+    </main>
+    <footer>
+        <div class="footer-text">
+            Application réalisée pour laformation B2 dev Campus Academy
+        </div>
+    </footer>
+</body>
+
+</html>

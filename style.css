@@ -1,0 +1,54 @@
+body {
+    height:100vh;
+    margin: 0px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction:column;
+}
+.header-menu {
+ color: white;
+ background-color: orange;
+}
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+.header-liens{
+    margin: 10px;
+    display: flex;
+    gap:20px
+}
+h1{
+    margin: 10px;
+}
+
+ul {
+    list-style-type:none;
+    padding-inline-start: 0;
+}
+main{
+    flex-grow: 1;
+}
+h2{
+    margin-bottom: 10px;
+}
+footer{
+    background-color: bisque;
+    border-top: 1px solid #bbb;
+
+}
+.footer-text{
+    margin: 10px;
+}
+
+input[type=checkbox]:checked + label{
+    text-decoration: line-through;
+}
+
+@media (min-width: 700px){
+    .header-menu{
+        display: flex;
+        align-items: center;
+    }
+}
