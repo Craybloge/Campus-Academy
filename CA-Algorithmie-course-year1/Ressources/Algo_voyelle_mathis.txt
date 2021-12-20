@@ -1,0 +1,43 @@
+Credit : Mathis Dubuc
+A:65
+E:69
+I:73
+O:79
+U:85
+Y:89
+
++32 : en minuscule 
+
+//declaration des variables 
+
+Variable Bla en chaine de caractere
+Variable i, nbMot, nbVoyelle, nbPhrase en entier
+
+
+Début 
+Ecrire "Entrez une phrase"				//on demande une phrase à l'utilisateur 
+Lire bla 								//on met cette phrase dans la variable bla 
+Redim monTab(len(bla))					// on redimentionne le tableau de la longueur de la chaine de cara
+nbMot <-- 0								//initialisation du nombre de mot a 0
+
+//Parcours du tableau 
+Pour i <-- 0 a len(bla)
+
+    Si asc(Mid(bla,i,1)) == 32 alors 			//si on detecte un espace alors compteur augmente de 1
+        nbMot <-- nbMot +1
+    FinSi
+
+    //version avec le numero ASCII des lettres 
+    Si asc(Mid(bla,i,1)) == 65 OU asc(Mid(bla,i,1))) == 69 OU asc(Mid(bla,i,1))) == 73 ou asc(Mid(bla,i,1)) == 79 OU asc(Mid(bla,i,1)) == 85 OU asc(Mid(bla,i,1)) == 89 alors
+        nbVoyelle <-- nbVoyelle + 1
+    FinSi
+
+    //version avec les lettres directement 
+    Si Mid(bla,i,1) == a  OU Mid(bla,i,1) == e OU Mid(bla,i,1)) == i ou Mid(bla,i,1) == o OU (Mid(bla,i,1)) == u OU Mid(bla,i,1) == y alors       		nbVoyelle <-- nbVoyelle + 1
+    FinSi
+
+FinPour
+Ecrire "Il y a ", nbMot + 1 , " mots"			//nombre de mots + 1 car si il y a un espace cela signifie qu'il y a deux mots 
+Ecrire "il y a ", nbVoyelle," voyelles"
+
+Fin

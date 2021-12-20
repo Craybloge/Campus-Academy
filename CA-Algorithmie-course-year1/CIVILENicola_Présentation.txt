@@ -1,0 +1,5 @@
+Nom : CIVILE	
+Prenom : Nicola
+Age : 22 Ans
+Etude : Switch IT B1
+Jeu video préféré : Genshin Impact (en ce moment)

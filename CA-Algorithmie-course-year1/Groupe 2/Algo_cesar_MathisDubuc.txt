@@ -1,0 +1,31 @@
+Variable Cle, Phrase, Alpha, NouvellePhrase en chaine de caractere
+Variable LettrePhrase, LettreCle en caractere
+Variable nb, i, j valeurPhrase, valeurCle en entier
+
+Debut
+Ecrire "Entrez votre phrase"
+Lire Phrase
+Ecrire "Entrez votre clé"
+Lire Cle
+Alpha <-- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+nb <-- 1
+Pour i <-- 1 à len(Phrase)
+  LettrePhrase <-- Mid(Phrase,i,1)
+  Si nb > i alors
+    nb <-- 1
+  FinSi
+  LettreCle <-- Mid(Cle, nb, 1)
+  valeurCle <-- Trouver(Alpha, LettreCle)
+  Si LettrePhrase != " " alors
+    valeurPhrase <-- Trouve(Alpha, LettrePhrase)
+    valeurPhrase <-- valeurPhrase + valeurCle
+    Si valeurPhrase > 26 alors
+      valeurPhrase <-- valeurPhrase - 26
+      FinSi
+      NouvellePhrase <-- NouvellePhrase + Mid(Alpha, valeurPhrase, 1)
+  Sinon
+    NouvellePhrase <-- NouvellePhrase + " "
+  FinSi
+  nb <-- nb + 1
+FinPour
+Fin
