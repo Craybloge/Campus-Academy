@@ -17,9 +17,12 @@ class Main
     public $vehicles = [];
     public $films = [];
 
-    public function run()
+    public function __construct()
     {
         $this->data = new Data();
+    }
+    public function run()
+    {
         $this->runTransports();
         $this->runPlanets();
         $this->runCharacters();
