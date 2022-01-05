@@ -1,14 +1,17 @@
 <?php
 
-class Film {
+class Film
+{
 
-    public function __construct($fields, $people, $transport, $planets, $species, $vehicles) {
+    public function __construct($fields, $people, $transport, $planets, $species, $vehicles)
+    {
         foreach ($fields as $key => $value) {
             $this->$key = $value;
         }
         $this->LinkPK($people, $transport, $planets, $species, $vehicles);
     }
-    public function LinkPK($people, $transport, $planets, $species, $vehicles) {
+    public function LinkPK($people, $transport, $planets, $species, $vehicles)
+    {
         foreach ($this->characters as $key => $value) {
             $this->characters[$key] = $people[$value];
         }
@@ -29,5 +32,4 @@ class Film {
     {
         return $this->title;
     }
-
 }

@@ -1,14 +1,17 @@
 <?php
 
-class Vehicle {
+class Vehicle
+{
 
-    public function __construct($fields, $people) {
+    public function __construct($fields, $people)
+    {
         foreach ($fields as $key => $value) {
             $this->$key = $value;
         }
         $this->LinkPK($people);
     }
-    public function LinkPK($people) {
+    public function LinkPK($people)
+    {
         foreach ($this->pilots as $key => $value) {
             $this->pilots[$key] = $people[$value];
         }
@@ -17,5 +20,4 @@ class Vehicle {
     {
         return $this->vehicle_class;
     }
-
 }
