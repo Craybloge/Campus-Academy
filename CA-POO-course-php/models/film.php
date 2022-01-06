@@ -1,16 +1,14 @@
 <?php
+include_once("model.php");
 
-class Film
+class Film extends Model
 {
 
-    public function __construct($fields, $people, $transport, $planets, $species, $vehicles)
+    public function __construct($fields)
     {
-        foreach ($fields as $key => $value) {
-            $this->$key = $value;
-        }
-        $this->LinkPK($people, $transport, $planets, $species, $vehicles);
+        parent::__construct($fields);
     }
-    public function LinkPK($people, $transport, $planets, $species, $vehicles)
+    public function linkPK($people, $transport, $planets, $species, $vehicles)
     {
         foreach ($this->characters as $key => $value) {
             $this->characters[$key] = $people[$value];

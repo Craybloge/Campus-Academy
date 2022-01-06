@@ -1,6 +1,6 @@
 <?php
 
-class Transport {
+class Model {
 
     public function __construct($fields) {
         foreach ($fields as $key => $value) {
@@ -9,6 +9,6 @@ class Transport {
     }
     public function __toString()
     {
-        return "le transport s'appelle $this->name, et peut contenir $this->passengers passager";
+        return $this->name;
     }
 }

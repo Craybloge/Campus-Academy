@@ -1,12 +1,7 @@
 <?php
 
-include_once("classes/people.php");
-include_once("classes/film.php");
-include_once("classes/transport.php");
-include_once("classes/planet.php");
-include_once("classes/species.php");
-include_once("classes/vehicle.php");
-include_once("classes/data.php");
+include_once("factory.php");
+include_once("data.php");
 
 class Main
 {
@@ -29,6 +24,8 @@ class Main
         $this->runSpecies();
         $this->runVehicles();
         $this->runFilms();
+
+        $this->linkAllPK();
     }
     private function runTransports()
     {
@@ -39,7 +36,7 @@ class Main
     }
     private function runTransport($data)
     {
-        $this->transport[$data->pk] = new Transport($data->fields);
+        $this->transport[$data->pk] = Factory::create($data->fields, "transport");
     }
     private function runPlanets()
     {
@@ -50,7 +47,7 @@ class Main
     }
     private function runPlanet($data)
     {
-        $this->planets[$data->pk] = new Planet($data->fields);
+        $this->planets[$data->pk] = Factory::create($data->fields, "planet");
     }
     private function runCharacters()
     {
@@ -61,7 +58,7 @@ class Main
     }
     private function runCharacter($data)
     {
-        $this->people[$data->pk] = new People($data->fields, $this->planets);
+        $this->people[$data->pk] = Factory::create($data->fields, "people");
     }
     private function runSpecies()
     {
@@ -72,7 +69,7 @@ class Main
     }
     private function runSpecie($data)
     {
-        $this->species[$data->pk] = new Species($data->fields, $this->people, $this->planets);
+        $this->species[$data->pk] = Factory::create($data->fields, "species");
     }
     private function runVehicles()
     {
@@ -83,7 +80,7 @@ class Main
     }
     private function runVehicle($data)
     {
-        $this->vehicles[$data->pk] = new Vehicle($data->fields, $this->people, $this->planets);
+        $this->vehicles[$data->pk] = Factory::create($data->fields, "vehicle");
     }
     private function runFilms()
     {
@@ -94,39 +91,43 @@ class Main
     }
     private function runFilm($data)
     {
-        $this->films[$data->pk] = new Film($data->fields, $this->people, $this->transport, $this->planets, $this->species, $this->vehicles);
+        $this->films[$data->pk] = Factory::create($data->fields, "film");
+    }
+    private function linkAllPK()
+    {
+        foreach ($this->people as $value) {
+            $value->linkPK($this->planets);
+        }
+        foreach ($this->species as $value) {
+            $value->linkPK($this->people, $this->planets);
+        }
+        foreach ($this->vehicles as $value) {
+            $value->linkPK($this->people);
+        }
+        foreach ($this->films as $value) {
+            $value->linkPK($this->people, $this->transport, $this->planets, $this->species, $this->vehicles);
+        }
     }
     public function __toString()
     {
-        $print = "la liste des films est: <br>";
+        $content = "la liste des films est: <br>";
         foreach ($this->films as $film) {
-            $print = $print . $film . "<br>";
+            $content = $content . $film . "<br>";
         }
-        return $print;
+        return $content;
     }
     public function print()
     {
         foreach ($this->films as $film) {
-            echo ("le film est: $film");
-            echo ("<br>");
-            echo ("il contient les personnages suivants:");
-            echo ("<br>");
-
-            // foreach ($film->starships as $starship) {
-            //     echo("          ");
-            //     echo($starship->name);
-            //     echo("<br>");
-            // }
-            // foreach ($film->species as $key => $species) {
-            //     echo($species);
-            //     echo("          dont la planète mère est : $species->homeworld");
-            //     echo ("<br>");
-
-            // }
-            foreach ($film->characters as $key => $character) {
-                echo ($character);
-                echo (" dont la planète mère est: $character->homeworld");
-                echo ("<br>");
+            foreach ($film as $key => $content) {
+                if (is_array($content)) {
+                    echo ("$key: <br>");
+                    foreach ($content as $value) {
+                        echo ('<p style="margin-left: 40px">' . $value . '</p>');
+                    }
+                } else {
+                    echo ($key . " : " . $content . "<br>");
+                }
             }
         }
     }

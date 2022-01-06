@@ -1,16 +1,14 @@
 <?php
+include_once("model.php");
 
-class Vehicle
+class Vehicle extends Model
 {
 
-    public function __construct($fields, $people)
+    public function __construct($fields)
     {
-        foreach ($fields as $key => $value) {
-            $this->$key = $value;
-        }
-        $this->LinkPK($people);
+        parent::__construct($fields);
     }
-    public function LinkPK($people)
+    public function linkPK($people)
     {
         foreach ($this->pilots as $key => $value) {
             $this->pilots[$key] = $people[$value];

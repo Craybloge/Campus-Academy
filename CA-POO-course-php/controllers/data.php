@@ -1,6 +1,7 @@
 <?php
 class Data
 {
+    private static $instance;
     private $files = [
         "transport",
         "films",
@@ -9,11 +10,19 @@ class Data
         "species",
         "vehicles"
     ];
+    public function __construct()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = 1;
+            self::$instance = new Data();
+        }
+        return self::$instance;
+    }
 
     public function getDataFromJson($filename)
     {
         if ($this->checkFileNameExists($filename)) {
-            $url = "swapi/" . $filename . ".json";
+            $url = "data_swapi/" . $filename . ".json";
             return json_decode(file_get_contents($url));
         }
     }

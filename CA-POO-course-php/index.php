@@ -1,7 +1,7 @@
 <?php
 
-include_once("classes/main.php");
+include_once("controllers/main.php");
 $data = new Main();
 $data->run();
-echo ($data);
+// echo ($data);
 $data->print();
