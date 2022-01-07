@@ -1,0 +1,25 @@
+{
+  "author": "Emmanuel Pelletier",
+  "private": true,
+  "scripts": {
+    "test": "ava"
+  },
+  "dependencies": {
+    "ava": "^2.4.0",
+    "esm": "^3.2.18"
+  },
+  "ava": {
+    "files": [
+      "{exercices}/*.js"
+    ],
+    "babel": false,
+    "compileEnhancements": false,
+    "extensions": [
+      "js"
+    ],
+    "require": [
+      "esm"
+    ],
+    "failWithoutAssertions": false
+  }
+}
